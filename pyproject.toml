@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "weatherapp"
+version = "0.1.0"
+description = ""
+authors = ["wakine"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+aiohttp = "^3.9.5"
+pydantic-settings = "^2.3.4"
+fastapi = "^0.111.0"
+uvicorn = "^0.30.1"
+babel = "^2.15.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

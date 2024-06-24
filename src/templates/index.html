@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогноз погоды</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .weather-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .weather-container h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        .weather-container p {
+            margin: 5px 0;
+        }
+        .temperature {
+            font-size: 3em;
+            font-weight: bold;
+        }
+        .description {
+            font-size: 1.2em;
+            font-style: italic;
+        }
+        /* Доб: Стили для панели управления */
+        .sidebar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 200px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+        }
+        .sidebar h2 {
+            color: white;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .sidebar select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .sidebar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffcc00;
+        }
+        .sidebar-link {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-icon {
+            display: none;
+            cursor: pointer;
+        }
+        .sidebar-link:hover .delete-icon {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Добавлено: Панель управления -->
+    <div class="sidebar">
+        <!-- Поле ввода для добавления города -->
+        <form action="/add-city" method="POST" style="margin-bottom: 10px; display: flex; justify-content: center;">
+            <input type="text" name="city_name" placeholder="Добавить город" style="flex-grow: 1; padding: 10px; border-radius: 5px 0 0 5px; border: none;" minlength="" maxlength="20">
+            <button type="submit" style="padding: 5px; border-radius: 0 5px 5px 0; border: none; background-color: #ffcc00; color: black;">Добавить</button>
+        </form>
+        {% for city in cities %}
+        <div class="sidebar-link" style="display: flex; justify-content: center; align-items: center;">
+            <a href="/{{city.id}}" id="{{city.id}}-link" style="flex-grow: 1; padding: 10px;">
+                {{city.name}}
+            </a>
+            <a href="/delete-city/{{city.id}}" class="delete-icon" style="padding: 10px;" onclick="deleteCity('{{city.id}}')">🗑️</a>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="weather-container">
+        <h1>Погода в городе {{data[0].city}}</h1>
+        
+        <p class="temperature">{{data[0].temperature}}°C</p>
+        <p class="description">{{data[0].weather}}</p>
+        <img src="../static/{{data[0].weather}}.png" alt="" style="width: 100px;">
+        <p>Влажность: {{data[0].humidity}}%</p>
+        <p>Ветер: {{data[0].wind_speed}} км/ч</p>
+        <p>Давление: {{data[0].pressure}} мм рт. ст.</p>
+        <div class="sun-times">
+            <h2>Рассвет и закат</h2>
+            <p>Рассвет: {{data[0].sunrise}}</p>
+            <p>Закат: {{data[0].sunset}}</p>
+        </div>
+        <!-- Добавлено: Погноз на следующие 3 дня -->
+        <div class="forecast">
+            <h2>Прогноз на следующие 3 дня</h2>
+            {% for forecast in data %}
+            <p>{{forecast.day_of_week}}: {{forecast.temperature}}°C, {{forecast.weather}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Начальная страница</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Добавление первого города</h1>
+    <form action="/add-city" method="POST" style="margin-bottom: 20px; display: flex; justify-content: center;">
+        <input type="text" name="city_name" placeholder="Добавить город" style="flex-grow: 1; padding: 10px; border-radius: 5px 0 0 5px; border: none; background: #181818; color: #fff;" placeholder="Добавить город" style="color: #fff;">
+        <button type="submit" style="padding: 10px; border-radius: 0 5px 5px 0; border: none; background-color: #ffcc00; color: black;">Добавить</button>
+    </form>
+</body>
+</html>
