@@ -48,7 +48,7 @@ async def read_root(city: str, request: Request):
     user_cities = [city for city in cities if city.get("user_agent") == user_agent]
 
     if not user_cities:
-        return HTMLResponse("No cities available for this user-agent", status_code=404)
+        return RedirectResponse(url="/", status_code=303)
 
     result = await Weather(city).main()
     
@@ -71,6 +71,12 @@ async def add_city(request: Request, city_name: str = Form(...)):
 
         config = json.load(f)
         cities = config.get("city", [])
+        
+        # Проверка на наличие города для данного user-agent
+        for city in cities:
+            if city["name"] == city_name and city["user_agent"] == user_agent:
+                return RedirectResponse(url=f"/{city_name}", status_code=303)
+        
         cities.append({"id": city_name, "name": city_name, "user_agent": user_agent})
         f.seek(0)
         json.dump(config, f, indent=4)

@@ -86,6 +86,25 @@
         .sidebar-link:hover .delete-icon {
             display: inline;
         }
+        /* Адаптация для мобилок и планшетов */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
+            }
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                box-shadow: none;
+                margin-bottom: 20px;
+            }
+            .weather-container {
+                width: 100%;
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -94,7 +113,7 @@
     <div class="sidebar">
         <!-- Поле ввода для добавления города -->
         <form action="/add-city" method="POST" style="margin-bottom: 10px; display: flex; justify-content: center;">
-            <input type="text" name="city_name" placeholder="Добавить город" style="flex-grow: 1; padding: 10px; border-radius: 5px 0 0 5px; border: none;" minlength="" maxlength="20">
+            <input type="text" name="city_name" placeholder="Добавить город" style="flex-grow: 1; padding: 10px; border-radius: 5px 0 0 5px; border: none;" minlength=3>
             <button type="submit" style="padding: 5px; border-radius: 0 5px 5px 0; border: none; background-color: #ffcc00; color: black;">Добавить</button>
         </form>
         {% for city in cities %}
