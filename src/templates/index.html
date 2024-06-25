@@ -143,7 +143,7 @@
         <div class="forecast">
             <h2>Прогноз на следующие 3 дня</h2>
             {% for forecast in data %}
-            <p>{{forecast.day_of_week}}: {{forecast.temperature}}°C, {{forecast.weather}}</p>
+            <p style="display: flex; align-items: center; justify-content: center;">{{forecast.day_of_week}}: {{forecast.temmin}}°C | {{forecast.temmax}}°C, {{forecast.weather}} <img src="../static/{{forecast.weather}}.png" alt="" style="width: 50px; margin-left: 10px;"></p>
             {% endfor %}
         </div>
     </div>
