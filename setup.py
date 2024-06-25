@@ -70,10 +70,15 @@ async def read_root(city: str, request: Request):
     )
 
 @app.post("/add-city")
-async def add_city(request: Request, city_name: str = Form(...)):
+async def add_city(request: Request, city_name: str = Form(default=None)):
+
+    if city_name is None:
+        return RedirectResponse(url="/", status_code=303)
+
     logger.info(f"Добавление города: {city_name}")
     user_agent = request.headers.get('user-agent')
     with open("src/settings/database.json", "r+") as f:
+        
 
         weather = Weather(city_name)
         result = await weather.main()

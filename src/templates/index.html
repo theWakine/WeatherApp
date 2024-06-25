@@ -112,8 +112,8 @@
     <!-- Добавлено: Панель управления -->
     <div class="sidebar">
         <!-- Поле ввода для добавления города -->
-        <form action="/add-city" method="POST" style="margin-bottom: 10px; display: flex; justify-content: center;">
-            <input type="text" name="city_name" placeholder="Добавить город" style="flex-grow: 1; padding: 10px; border-radius: 5px 0 0 5px; border: none;" minlength=3>
+        <form id="city-form" action="/add-city" method="POST" style="margin-bottom: 10px; display: flex; justify-content: center;">
+            <input type="text" id="city-name" name="city_name" placeholder="Добавить город" style="flex-grow: 1; padding: 10px; border-radius: 5px 0 0 5px; border: none;" minlength="3" required>
             <button type="submit" style="padding: 5px; border-radius: 0 5px 5px 0; border: none; background-color: #ffcc00; color: black;">Добавить</button>
         </form>
         {% for city in cities %}
@@ -147,5 +147,14 @@
             {% endfor %}
         </div>
     </div>
+    <script>
+        document.getElementById('city-form').addEventListener('submit', function(event) {
+            var cityName = document.getElementById('city-name').value;
+            if (cityName.length < 3) {
+                alert('Название города должно содержать минимум 3 символа.');
+                event.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>
