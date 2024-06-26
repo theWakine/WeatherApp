@@ -49,8 +49,8 @@ class Weather:
                     }
                     if day_id == 1:  # Добавляем время заката и рассвета для первого дня
                         day_result["city"] = data["city"]["name"]
-                        day_result['sunrise'] = data['city']['sunrise']
-                        day_result['sunset'] = data['city']['sunset']
+                        day_result['sunrise'] = datetime.datetime.fromtimestamp(data['city']['sunrise']).strftime('%Y-%m-%d %H:%M:%S')
+                        day_result['sunset'] = datetime.datetime.fromtimestamp(data['city']['sunset']).strftime('%Y-%m-%d %H:%M:%S')
                     result.append(day_result)
                     day_id += 1  # Увеличиваем ID для следующего дня
 
